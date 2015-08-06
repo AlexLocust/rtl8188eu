@@ -1469,9 +1469,14 @@ static struct recv_frame *recvframe_defrag(struct adapter *adapter, struct __que
 	struct __queue *pfree_recv_queue;
 
 	curfragnum = 0;
+	if(adapter == NULL || defrag_q == NULL)
+		return NULL;
 	pfree_recv_queue = &adapter->recvpriv.free_recv_queue;
 
 	phead = get_list_head(defrag_q);
+	if(phead == NULL) 
+		return NULL;
+
 	plist = phead->next;
 	prframe = container_of(plist, struct recv_frame, list);
 	prframe = (struct recv_frame *)pfhdr;
